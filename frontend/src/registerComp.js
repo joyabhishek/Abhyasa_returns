@@ -12,7 +12,7 @@ class RegisterComp extends Component{
             username: "",
             password: "",
             confirmpassword: "",
-            errorMessage:[],
+            errorMessage:"",
             showRegister:true,
             showLogin:false
         }
@@ -27,35 +27,6 @@ class RegisterComp extends Component{
         this.setState({[name]: value})
     }
 
-    userExists(username){
-        return fetch("/userexists", {
-            "method": "POST",
-            "headers":{
-                "content_type":"application/json",
-            },
-            "body": JSON.stringify({
-              username: username
-            })
-          })
-        .then(response => response.json())
-        .then(output => {
-            console.log(output)
-            return output.Exists
-            
-        }) 
-    }
-
-    validateUserInput(firstname,    lastname,    username,    password,    confirmpassword){
-        var errorMessageList = []
-        if (firstname === "" || lastname === "" || username==="" || password === "" || confirmpassword ===""){
-            errorMessageList.push('All the fields are compulsory')
-        }else if(this.userExists(username)){
-            errorMessageList.push(username + ' username already taken')
-        }else if(! (password === confirmpassword)){
-            errorMessageList.push('Password and confirm password are not similar')
-        }
-        return errorMessageList
-    }
 
     loginClick(){
         this.setState({
@@ -66,8 +37,8 @@ class RegisterComp extends Component{
 
     register(){
         console.log(this.state.firstname,this.state.lastname,this.state.username,this.state.password,this.state.confirmpassword)
-        var errorMessageList = this.validateUserInput(this.state.firstname,this.state.lastname,this.state.username,this.state.password,this.state.confirmpassword)
-        if(errorMessageList.length === 0){
+        //var errorMessageList = this.validateUserInput(this.state.firstname,this.state.lastname,this.state.username,this.state.password,this.state.confirmpassword)
+        
             fetch("/register", {
                 "method": "POST",
                 "headers":{
@@ -77,22 +48,18 @@ class RegisterComp extends Component{
                     firstname: this.state.firstname,
                     lastname: this.state.lastname,
                     username: this.state.username,
-                    password: this.state.password
+                    password: this.state.password,
+                    confirmpassword: this.state.confirmpassword
                 })
               })
             .then(response => response.json())
             .then(output => {
                 this.setState({
-                    showRegister: !output.register,
-                    showLogin: output.register
+                    showRegister: !output.result,
+                    showLogin: output.result,
+                    errorMessage: output.msg
                 })
             })
-        }else{
-            this.setState({
-                errorMessage : [...errorMessageList]
-            })
-        }
-
     }
     
     render(){

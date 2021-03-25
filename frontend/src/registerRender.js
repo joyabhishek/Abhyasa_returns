@@ -1,20 +1,17 @@
 import React from 'react';
 
 function RegisterFormRender(props){
-    var errorList = props.errorMessage.map(error => {
-        return (<p>{error}</p>)
-    })
 
     return (
         <div className="container">
             <div className="left">
                 <div className="left_content">
                     <h1>Habit tracker</h1>
-                    <p>Please login</p>
+                    <p>Please Register</p>
                 </div>
             </div>
             <div className="right">
-                {errorList}
+                {props.errorMessage}
                 <p>Firstname</p>
                 <input type="text" name="firstname" value={props.firstname} onChange={props.handleChange} />
                 <p>Lastname</p>

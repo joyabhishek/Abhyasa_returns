@@ -63,7 +63,17 @@ def index():
     return "Hello"
 
 
-@app.route('/register', methods=['POST'])
+def validateRegisterUserInput(firstname,    lastname,    username,    password,    confirmpassword):
+    if (firstname == "" or lastname == "" or username == "" or password == "" or confirmpassword == ""):
+        return {'result': False, 'msg': 'All fields are compulsary'}
+    elif(userExists(username)):
+        return {'result': False, 'msg': f'{username} username already taken'}
+    elif(not (password == confirmpassword)):
+        return {'result': False, 'msg': 'Password and confirm password are not similar'}
+    return {'result': True}
+
+
+@ app.route('/register', methods=['POST'])
 def registerUserdb():
     # On a new register add entry to db
     print(request.json)
@@ -71,28 +81,32 @@ def registerUserdb():
     lastname = request.json['lastname']
     username = request.json['username']
     password = request.json['password']
-    db = getdb()
-    db.execute(
-        'INSERT INTO users(first_name, last_name, username, password) VALUES (?, ?, ?, md5(?))', (firstname, lastname, username, password))
-    showEntriesInUserdb()
-    db.commit()
-    return {'register': True}
+    confirmpassword = request.json['confirmpassword']
+    res = validateRegisterUserInput(
+        firstname,    lastname,    username,    password,    confirmpassword)
+    if res['result']:
+        db = getdb()
+        db.execute(
+            'INSERT INTO users(first_name, last_name, username, password) VALUES (?, ?, ?, md5(?))', (firstname, lastname, username, password))
+        showEntriesInUserdb()
+        db.commit()
+        return {'result': True, 'msg': 'Register successfull'}
+    else:
+        return res
 
 
-@app.route('/userexists', methods=['POST'])
-def userExists():
+def userExists(username):
     # Check when a user wants to register and that username already exists
-    username = request.json['username']
     print(f"Username to verify:{username}")
     db = getdb()
     count = db.execute(
         'SELECT COUNT(*) FROM users WHERE username=?', tuple((username,))).fetchone()[0]
     if count == 1:
         print(f"Username exists:{True}")
-        return {'Exists': True}
+        return True
     else:
         print(f"Username exists:{False}")
-        return {'Exists': False}
+        return False
     # return true
 
 
@@ -109,7 +123,7 @@ def canUserLogin(username, password):
         return False
 
 
-@app.route('/login', methods=['POST'])
+@ app.route('/login', methods=['POST'])
 def login():
     # Check for username and password for login
     print(request.json)
@@ -127,7 +141,7 @@ def login():
         return {'login': False, 'msg': "Invalid username and password"}
 
 
-@app.route('/logout')
+@ app.route('/logout')
 def logout():
     # Check for username and password for login
     session.pop('username', None)
@@ -142,7 +156,7 @@ def showEntriesInUserdb():
               row['username'], row['password'])
 
 
-@app.route('/isUserLoggedIn', methods=['GET'])
+@ app.route('/isUserLoggedIn', methods=['GET'])
 def isUserLoggedIn():
     if 'username' in session:
         print({'loggedIn': True})
@@ -152,6 +166,6 @@ def isUserLoggedIn():
         return {'loggedIn': False}
 
 
-@app.route('/time')
+@ app.route('/time')
 def get_current_time():
     return {'time': time.time()}
