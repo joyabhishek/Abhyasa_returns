@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import LoginFormRender from "./loginRender"
 import RegisterComp from './registerComp';
-import LogoutComp from "./logoutComp"
+import LogoutComp from "./logoutComp";
+import HabitRender from "./habitRender"
 
 class LoginComp extends Component{
     constructor(){
@@ -76,7 +77,7 @@ class LoginComp extends Component{
                     <RegisterComp />
                 )
             }else{
-                return <LogoutComp />
+                return <HabitRender />
             }
         
 

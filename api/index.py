@@ -38,7 +38,75 @@ CREATE TABLE IF NOT EXISTS "users" (
 "last_name" VARCHAR,
 "username" VARCHAR NOT NULL UNIQUE,
 "password" VARCHAR NOT NULL
-); """
+);
+
+
+CREATE TABLE "habits" (
+"id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+"name" VARCHAR NOT NULL,
+"color" VARCHAR NOT NULL,
+"reminder" VARCHAR NOT NULL,
+"days" VARCHAR NOT NULL,
+"mins" INTEGER NOT NULL,
+"userID" INTEGER NOT NULL,
+FOREIGN KEY (userID) REFERENCES users(id)
+);
+
+
+"""
+
+
+def getUserId(username):
+    db = getdb()
+    uid = db.execute("SELECT id from users WHERE username='?';",
+                     (username,)).fetchone()[0]
+    return uid
+
+
+def habitExistsForUser(habitName):
+    db = getdb()
+    count = db.execute(
+        'SELECT COUNT(*) FROM habits WHERE userID=? AND name=?', (getUserId(session["username"]), habitName)).fetchone()[0]
+    if count == 1:
+        print(f"Username exists:{True}")
+        return True
+    else:
+        print(f"Username exists:{False}")
+        return False
+
+
+def validateHabitUserInput(name, color, reminder, days, mins):
+    if name == "" or color == "" or reminder == "" or days == "" or mins == "":
+        return {'result': False, 'msg': 'All fields are compulsary'}
+    elif habitExistsForUser(name):
+        return {'result': False, 'msg': 'Habit with the same name exists for the user'}
+    return {'result': True}
+
+
+@app.route("/addHabit", methods=['POST'])
+def addHabit():
+    print(request.json)
+    name = request.json['name']
+    color = request.json['color']
+    reminder = request.json['reminder']
+    days = request.json['days']
+    mins = request.json['mins']
+    username = session["username"]
+
+    res = validateHabitUserInput(name, color, reminder, days, mins)
+    if res['result']:
+        db = getdb()
+        db.execute('INSERT INTO habits(name, color, reminder, days, mins, userID) VALUES (?, ?, ?, ?, ?, ?)',
+                   (name, color, reminder, days, mins, getUserId(username)))
+        showEntriesInUserdb()
+        db.commit()
+        return {'result': True, 'msg': 'Habit register successfull'}
+    else:
+        return res
+
+
+def fetchHabitForCurrentUser():
+    pass
 
 
 def md5sum(t):

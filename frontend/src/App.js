@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import LoginComp from './loginComp';
 import LogoutComp from "./logoutComp"
+import HabitRender from "./habitRender"
 
 class App extends Component{
 
@@ -32,11 +33,12 @@ class App extends Component{
       if (this.state.loggedIn === null){
         return <h1>Fetching ...</h1>
       }else if(this.state.loggedIn){
-          return <LogoutComp />
+          return <HabitRender />
       }else{
         return <LoginComp />      
-      }
+      }      
     }
 }
+
 
 export default App;
