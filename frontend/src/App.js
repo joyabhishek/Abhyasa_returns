@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import LoginComp from './loginComp';
 import LogoutComp from "./logoutComp"
 import HabitRender from "./habitRender"
+import HabitComp from './habitComp';
 
 class App extends Component{
 
@@ -33,7 +34,7 @@ class App extends Component{
       if (this.state.loggedIn === null){
         return <h1>Fetching ...</h1>
       }else if(this.state.loggedIn){
-          return <HabitRender />
+          return <HabitComp />
       }else{
         return <LoginComp />      
       }      

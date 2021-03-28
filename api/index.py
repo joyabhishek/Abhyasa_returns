@@ -41,7 +41,7 @@ CREATE TABLE IF NOT EXISTS "users" (
 );
 
 
-CREATE TABLE "habits" (
+CREATE TABLE IF NOT EXISTS "habits" (
 "id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
 "name" VARCHAR NOT NULL,
 "color" VARCHAR NOT NULL,
@@ -58,8 +58,8 @@ FOREIGN KEY (userID) REFERENCES users(id)
 
 def getUserId(username):
     db = getdb()
-    uid = db.execute("SELECT id from users WHERE username='?';",
-                     (username,)).fetchone()[0]
+    uid = db.execute("SELECT id from users WHERE username=?;",
+                     tuple((username,))).fetchone()[0]
     return uid
 
 
@@ -79,20 +79,23 @@ def validateHabitUserInput(name, color, reminder, days, mins):
     if name == "" or color == "" or reminder == "" or days == "" or mins == "":
         return {'result': False, 'msg': 'All fields are compulsary'}
     elif habitExistsForUser(name):
-        return {'result': False, 'msg': 'Habit with the same name exists for the user'}
+        print({'result': False, 'msg': 'Habit with the same name exists for the user'})
+        return {'result': False, 'msg': f'Habit with the same name \"{name}\" exists for the user'}
     return {'result': True}
 
 
 @app.route("/addHabit", methods=['POST'])
 def addHabit():
+    fetchHabitForCurrentUser()
     print(request.json)
     name = request.json['name']
     color = request.json['color']
     reminder = request.json['reminder']
-    days = request.json['days']
+    days = ",".join(request.json['days'])
     mins = request.json['mins']
     username = session["username"]
-
+    print(f"Data type of reminder: {type(reminder)}")
+    print(f"Data type of days: {type(days)}")
     res = validateHabitUserInput(name, color, reminder, days, mins)
     if res['result']:
         db = getdb()
@@ -100,13 +103,20 @@ def addHabit():
                    (name, color, reminder, days, mins, getUserId(username)))
         showEntriesInUserdb()
         db.commit()
-        return {'result': True, 'msg': 'Habit register successfull'}
+        return {'result': True, 'msg': f'Habit \"{name}\" register successfull'}
     else:
         return res
 
 
 def fetchHabitForCurrentUser():
-    pass
+    username = session["username"]
+    db = getdb()
+    habits = db.execute('SELECT * from habits WHERE userID=?',
+                        (getUserId(username),)).fetchall()
+    for habit in habits:
+        keys = habit.keys()
+        s = ",".join([str(habit[k]) for k in keys])
+        print(s)
 
 
 def md5sum(t):

@@ -62,17 +62,13 @@ body {
 
 .container .right input[type="text"],
 .container .right input[type="button"],
-.container .right input[type="datetime-local"],
+.container .right input[type="time"],
+.container .right input[type="number"],
 .container .right_habit input[type="text"],
 .container .right_habit input[type="button"],
-.container .right_habit input[type="datetime-local"] {
+.container .right_habit input[type="time"],
+.container .right_habit input[type="number"] {
   padding: 0.5em;
-}
-
-.container .right input[type="datetime-local"],
-.container .right_habit input[type="datetime-local"] {
-  width: calc(100% - 1.5em);
-  font-size: 1em;
 }
 
 .container .right input[type="button"],
@@ -86,7 +82,9 @@ body {
 }
 
 .container .right input[type="text"],
-.container .right_habit input[type="text"] {
+.container .right input[type="number"],
+.container .right_habit input[type="text"],
+.container .right_habit input[type="number"] {
   width: calc(100% - 1em);
   font-size: 1.2em;
 }

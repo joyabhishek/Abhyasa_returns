@@ -40,7 +40,6 @@ body {
   }
 
   .right {
-
     input[type="password"] {
       padding: 0.5em;
     }
@@ -49,7 +48,6 @@ body {
       width: calc(100% - 1em);
       font-size: 1.2em;
     }
-
   }
 
   .right,
@@ -64,13 +62,9 @@ body {
 
     input[type="text"],
     input[type="button"],
-    input[type="datetime-local"] {
+    input[type="time"],
+    input[type="number"] {
       padding: 0.5em;
-    }
-
-    input[type="datetime-local"] {
-      width: calc(100% - 1.5em);
-      font-size: 1em;
     }
 
     input[type="button"] {
@@ -83,20 +77,20 @@ body {
       color: white;
     }
 
-    input[type="text"] {
+    input[type="text"],
+    input[type="number"] {
       width: calc(100% - 1em);
       font-size: 1.2em;
     }
 
-    .signup_reminder{
+    .signup_reminder {
       font-size: 0.7em !important;
       padding: 0em 1em;
       text-align: center;
-      span{
+      span {
         color: aqua;
       }
     }
-
   }
 }
 
@@ -132,9 +126,8 @@ body {
       padding: 2em 2em;
     }
 
-    .right{
+    .right {
       align-self: center;
     }
-
   }
 }
