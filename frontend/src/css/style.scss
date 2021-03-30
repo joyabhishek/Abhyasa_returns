@@ -51,7 +51,8 @@ body {
   }
 
   .right,
-  .right_habit {
+  .right_habit,
+  .habits {
     padding: 1em;
 
     p {
@@ -94,6 +95,49 @@ body {
   }
 }
 
+.myHabitcontainer {
+  .heading {
+    background: linear-gradient(
+      45deg,
+      rgba(131, 58, 180, 1) 0%,
+      rgba(253, 29, 29, 1) 50%,
+      rgba(252, 176, 69, 1) 100%
+    );
+    display: grid;
+    grid-template-columns: 60% auto;
+    padding: 0.5em 1em !important;
+    font-size: 1.2em;
+    color: white;
+    button {
+      height: 2em;
+      align-self: center;
+      border: none;
+      font-size: 0.8em;
+      border-radius: 0.5em;
+      color: white;
+      border: 1px solid white;
+      background: linear-gradient(
+        45deg,
+        rgba(131, 58, 180, 1) 0%,
+        rgba(253, 29, 29, 1) 50%,
+        rgba(252, 176, 69, 1) 100%
+      );
+    }
+  }
+
+  .habits {
+    padding: 0em 0.5em;
+
+    .habit {
+      padding: 0.1em 0em;
+      margin: 0.5em 0em;
+      p {
+        padding: 0em 0.5em;
+      }
+    }
+  }
+}
+
 @media only screen and (min-width: 768px) {
   .container {
     font-size: 20px;
@@ -101,6 +145,12 @@ body {
     .right,
     .right_habit {
       padding: 2em 5em;
+    }
+  }
+
+  .myHabitcontainer {
+    .habits {
+      padding: 0em 2em;
     }
   }
 }
@@ -127,6 +177,23 @@ body {
     }
 
     .right {
+      align-self: center;
+    }
+  }
+
+  .myHabitcontainer {
+    display: grid;
+    grid-template-columns: 50% auto;
+
+    .heading {
+      height: 100vh;
+      h2,
+      button {
+        align-self: center;
+      }
+    }
+
+    .habits {
       align-self: center;
     }
   }

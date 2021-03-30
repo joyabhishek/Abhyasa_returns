@@ -108,15 +108,35 @@ def addHabit():
         return res
 
 
+@app.route("/fetchHabit", methods=['GET'])
 def fetchHabitForCurrentUser():
     username = session["username"]
     db = getdb()
     habits = db.execute('SELECT * from habits WHERE userID=?',
                         (getUserId(username),)).fetchall()
-    for habit in habits:
+    res = {}
+    for i, habit in enumerate(habits):
         keys = habit.keys()
-        s = ",".join([str(habit[k]) for k in keys])
-        print(s)
+        habitD = {}
+        for k in keys:
+            habitD[k] = habit[k]
+        res[i] = habitD
+    print(res)
+    return res
+
+
+@app.route("/hasHabit", methods=['GET'])
+def currentUserHasAnyHabits():
+    username = session["username"]
+    db = getdb()
+    count = db.execute('SELECT COUNT(*) FROM habits WHERE userID=?',
+                       (getUserId(username),)).fetchone()[0]
+    if count >= 1:
+        print({'hasHabits': True})
+        return {'hasHabits': True}
+    else:
+        print({'hasHabits': False})
+        return {'hasHabits': False}
 
 
 def md5sum(t):

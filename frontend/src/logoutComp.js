@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import LoginComp from "./loginComp"
+import App from "./App"
 
 class LogoutComp extends Component{
     
@@ -38,7 +39,7 @@ class LogoutComp extends Component{
                 </div>
             )
         }else{
-            return <LoginComp />
+            return <App />
         }
         
     }

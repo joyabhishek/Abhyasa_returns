@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import LoginFormRender from "./loginRender"
 import RegisterComp from './registerComp';
 import LogoutComp from "./logoutComp";
-import HabitRender from "./habitRender"
+import HabitComp from "./habitComp"
 
 class LoginComp extends Component{
     constructor(){
@@ -60,7 +60,7 @@ class LoginComp extends Component{
     }
     
     render(){
-      
+            console.log("Am i getting called ?")
             if (this.state.showLogin){
                 return(
                     <LoginFormRender 
@@ -77,7 +77,7 @@ class LoginComp extends Component{
                     <RegisterComp />
                 )
             }else{
-                return <HabitRender />
+                return <HabitComp />
             }
         
 

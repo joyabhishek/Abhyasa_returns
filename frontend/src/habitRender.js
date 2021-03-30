@@ -20,11 +20,11 @@ function HabitRender(props){
                     <p>Goal</p>
                     <input type="number" name="goalmins" value={props.goalmins}  min="1" max="1440" onChange={props.handleChange}/>
                     <p>Color</p>
-                    <input type="radio" name="Color" value="red" checked={props.color === "red"} onChange={props.handleChange}/>Red
-                    <input type="radio" name="Color" value="green" checked={props.color === "green"} onChange={props.handleChange}/>Green
-                    <input type="radio" name="Color" value="blue" checked={props.color === "blue"} onChange={props.handleChange}/>Blue
-                    <input type="radio" name="Color" value="yellow" checked={props.color === "yellow"} onChange={props.handleChange}/>Yellow
-                    <input type="radio" name="Color" value="purple" checked={props.color === "purple"} onChange={props.handleChange}/>Purple
+                    <input type="radio" name="color" value="red" checked={props.color === "red"} onChange={props.handleChange}/>Red
+                    <input type="radio" name="color" value="green" checked={props.color === "green"} onChange={props.handleChange}/>Green
+                    <input type="radio" name="color" value="blue" checked={props.color === "blue"} onChange={props.handleChange}/>Blue
+                    <input type="radio" name="color" value="yellow" checked={props.color === "yellow"} onChange={props.handleChange}/>Yellow
+                    <input type="radio" name="color" value="purple" checked={props.color === "purple"} onChange={props.handleChange}/>Purple
                     <p >Frequency</p>
                     <input type="checkbox" name="Mon"  checked={props.frequency.includes("Mon") }  onChange={props.handleFreq} />Mon
                     <input type="checkbox" name="Tue"  checked={props.frequency.includes("Tue")} onChange={props.handleFreq}/>Tue
@@ -36,6 +36,7 @@ function HabitRender(props){
                     <p >Reminder</p>
                     <input type="time" name="reminder" id="reminder" value={props.reminder} onChange={props.handleChange}/>
                     <input type="button" value="Complete" onClick={props.habitCreate}/>
+                    <p className="signup_reminder">Wanna logout? <span onClick={props.handleLogout}>logout</span> !</p>
             </div>
         </div>
         )
