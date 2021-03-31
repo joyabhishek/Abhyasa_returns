@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import LogoutComp from "./logoutComp"
 
 function HabitRender(props){
-    console.log(props.hname)
+    console.log(props.reminder)
    return (
             <div className="container">
             <div className="left_habit">
@@ -34,9 +34,10 @@ function HabitRender(props){
                     <input type="checkbox" name="Sat"  checked={props.frequency.includes("Sat")} onChange={props.handleFreq}/>Sat
                     <input type="checkbox" name="Sun"  checked={props.frequency.includes("Sun")} onChange={props.handleFreq}/>Sun
                     <p >Reminder</p>
-                    <input type="time" name="reminder" id="reminder" value={props.reminder} onChange={props.handleChange}/>
+                    <input type="time" name="reminder" value={props.reminder} onChange={props.handleChange}/>
                     <input type="button" value="Complete" onClick={props.habitCreate}/>
-                    <p className="signup_reminder">Wanna logout? <span onClick={props.handleLogout}>logout</span> !</p>
+                    {props.hasHabits ? <p className="signup_reminder">Go to? <span onClick={props.showMyHabits}>my habits !</span> </p> : null}
+                    <p className="signup_reminder">Wanna logout? <span onClick={props.handleLogout}>logout !</span> </p>
             </div>
         </div>
         )

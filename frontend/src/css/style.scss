@@ -51,8 +51,7 @@ body {
   }
 
   .right,
-  .right_habit,
-  .habits {
+  .right_habit {
     padding: 1em;
 
     p {
@@ -133,6 +132,15 @@ body {
       margin: 0.5em 0em;
       p {
         padding: 0em 0.5em;
+      }
+    }
+
+    .signup_reminder {
+      font-size: 0.7em !important;
+      padding: 0em 1em;
+
+      span {
+        color: aqua;
       }
     }
   }

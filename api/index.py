@@ -7,6 +7,8 @@ import hashlib
 app = Flask(__name__)
 app.secret_key = 'super secret key'
 
+# Next Just Add Delete a habit option
+
 
 def getdb():
     # If the exists then fine else create new one

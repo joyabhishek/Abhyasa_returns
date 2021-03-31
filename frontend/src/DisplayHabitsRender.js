@@ -12,7 +12,7 @@ function DisplayHabitRender(props){
                 <p>Name: {props.habits[habitInfo].name}</p>
                 <p>Reminder: {props.habits[habitInfo].reminder}</p>
                 <p>Days: {props.habits[habitInfo].days}</p>
-                <p>Mins: {props.habits[habitInfo].mins}</p>
+                <p>Goal: {props.habits[habitInfo].mins} mins</p>
             </div>
             
         )

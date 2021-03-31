@@ -49,14 +49,12 @@ body {
 }
 
 .container .right,
-.container .right_habit,
-.container .habits {
+.container .right_habit {
   padding: 1em;
 }
 
 .container .right p,
-.container .right_habit p,
-.container .habits p {
+.container .right_habit p {
   padding: 0.5em 1em;
   font-size: 1.5em;
   margin: 0;
@@ -69,17 +67,12 @@ body {
 .container .right_habit input[type="text"],
 .container .right_habit input[type="button"],
 .container .right_habit input[type="time"],
-.container .right_habit input[type="number"],
-.container .habits input[type="text"],
-.container .habits input[type="button"],
-.container .habits input[type="time"],
-.container .habits input[type="number"] {
+.container .right_habit input[type="number"] {
   padding: 0.5em;
 }
 
 .container .right input[type="button"],
-.container .right_habit input[type="button"],
-.container .habits input[type="button"] {
+.container .right_habit input[type="button"] {
   margin: 1em 0;
   width: calc(100%);
   font-size: 1.2em;
@@ -91,24 +84,20 @@ body {
 .container .right input[type="text"],
 .container .right input[type="number"],
 .container .right_habit input[type="text"],
-.container .right_habit input[type="number"],
-.container .habits input[type="text"],
-.container .habits input[type="number"] {
+.container .right_habit input[type="number"] {
   width: calc(100% - 1em);
   font-size: 1.2em;
 }
 
 .container .right .signup_reminder,
-.container .right_habit .signup_reminder,
-.container .habits .signup_reminder {
+.container .right_habit .signup_reminder {
   font-size: 0.7em !important;
   padding: 0em 1em;
   text-align: center;
 }
 
 .container .right .signup_reminder span,
-.container .right_habit .signup_reminder span,
-.container .habits .signup_reminder span {
+.container .right_habit .signup_reminder span {
   color: aqua;
 }
 
@@ -147,6 +136,15 @@ body {
 
 .myHabitcontainer .habits .habit p {
   padding: 0em 0.5em;
+}
+
+.myHabitcontainer .habits .signup_reminder {
+  font-size: 0.7em !important;
+  padding: 0em 1em;
+}
+
+.myHabitcontainer .habits .signup_reminder span {
+  color: aqua;
 }
 
 @media only screen and (min-width: 768px) {

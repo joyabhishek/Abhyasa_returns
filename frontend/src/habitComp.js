@@ -14,17 +14,19 @@ class HabitComp extends Component{
             hname:"",
             goalmins:"",
             color:"red",
-            reminder : d.getHours() +":" +d.getMinutes(),
+            reminder : String(d.getHours()).padStart(2,'0')  +":" +String(d.getMinutes()).padStart(2,'0'),
             frequency: [],
             errorMessage:"",
             hasHabits:null,
-            logout:false
+            logout:false,
+            addHabit:null
         }
         this.handleChange = this.handleChange.bind(this)
         this.handleFreq = this.handleFreq.bind(this)
         this.habitCreate  = this.habitCreate.bind(this)
         this.handleLogout  = this.handleLogout.bind(this)
         this.showHabitsForm  = this.showHabitsForm.bind(this)
+        this.showMyHabits = this.showMyHabits.bind(this)
     }
 
     handleLogout(){
@@ -63,8 +65,7 @@ class HabitComp extends Component{
         .then( response => response.json())
         .then(output => {
             console.log(output.hasHabits)
-            this.setState({
-                
+            this.setState({                
                 hasHabits : output.hasHabits
             })
         })
@@ -87,8 +88,21 @@ class HabitComp extends Component{
 
 
     showHabitsForm(){
+        var d = new Date();
         this.setState({
-            hasHabits:false
+            addHabit:true,
+            hname:"",
+            goalmins:"",
+            color:"red",
+            reminder : String(d.getHours()).padStart(2,'0')  +":" +String(d.getMinutes()).padStart(2,'0'),
+            frequency: [],
+            errorMessage:"",
+        })
+    }
+
+    showMyHabits(){
+        this.setState({
+            addHabit:false
         })
     }
 
@@ -111,6 +125,7 @@ class HabitComp extends Component{
             console.log(output)
 
             this.setState ({
+                    hasHabits: output.result,
                     errorMessage: output.msg
                 })                     
         })
@@ -125,27 +140,47 @@ class HabitComp extends Component{
         }else{
             if (this.state.hasHabits === null) {
                 content =  <h1>Fetching ...</h1>
-            }else if (this.state.hasHabits){
-                content = <div>
-                    <DisplayHabitComp 
-                    handleLogout = {this.handleLogout} 
-                    displayHabitForm = {this.showHabitsForm}/>
-                    
-                </div>
             }else{
-                content = <HabitRender 
-                hname={this.state.hname}
-                goalmins = {this.state.goalmins}
-                color={this.state.color}
-                reminder ={this.state.reminder}
-                frequency={this.state.frequency}
-                errorMessage={this.state.errorMessage}
-                handleChange = {this.handleChange}
-                handleFreq = {this.handleFreq}
-                habitCreate = {this.habitCreate}
-                handleLogout = {this.handleLogout}
-                />
-            }
+                if (this.state.hasHabits){
+                    if (!this.state.addHabit){
+                        content = <div>
+                        <DisplayHabitComp 
+                        handleLogout = {this.handleLogout} 
+                        displayHabitForm = {this.showHabitsForm}/>                        
+                    </div>
+                    }else{
+                        content = <HabitRender 
+                        hname={this.state.hname}
+                        goalmins = {this.state.goalmins}
+                        color={this.state.color}
+                        reminder ={this.state.reminder}
+                        frequency={this.state.frequency}
+                        errorMessage={this.state.errorMessage}
+                        handleChange = {this.handleChange}
+                        handleFreq = {this.handleFreq}
+                        habitCreate = {this.habitCreate}
+                        handleLogout = {this.handleLogout}
+                        showMyHabits = {this.showMyHabits}
+                        hasHabits = {this.state.hasHabits}
+                        /> 
+                    }                    
+                }else{
+                    content = <HabitRender 
+                    hname={this.state.hname}
+                    goalmins = {this.state.goalmins}
+                    color={this.state.color}
+                    reminder ={this.state.reminder}
+                    frequency={this.state.frequency}
+                    errorMessage={this.state.errorMessage}
+                    handleChange = {this.handleChange}
+                    handleFreq = {this.handleFreq}
+                    habitCreate = {this.habitCreate}
+                    handleLogout = {this.handleLogout}
+                    showMyHabits = {this.showMyHabits}
+                    hasHabits = {this.state.hasHabits}
+                    />
+                }
+            } 
         }
        
         return(
