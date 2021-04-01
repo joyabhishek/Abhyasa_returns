@@ -206,7 +206,6 @@ body {
     grid-template-columns: 50% auto;
 
     .heading {
-      height: 100vh;
       h2,
       button {
         align-self: center;
@@ -214,6 +213,8 @@ body {
     }
 
     .habits {
+      height: 100vh;
+      overflow: scroll;
       align-self: center;
     }
   }

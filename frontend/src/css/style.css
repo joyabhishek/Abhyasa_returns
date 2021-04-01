@@ -210,9 +210,6 @@ body {
     -ms-grid-columns: 50% auto;
         grid-template-columns: 50% auto;
   }
-  .myHabitcontainer .heading {
-    height: 100vh;
-  }
   .myHabitcontainer .heading h2,
   .myHabitcontainer .heading button {
     -ms-flex-item-align: center;
@@ -220,6 +217,8 @@ body {
         align-self: center;
   }
   .myHabitcontainer .habits {
+    height: 100vh;
+    overflow: scroll;
     -ms-flex-item-align: center;
         -ms-grid-row-align: center;
         align-self: center;
