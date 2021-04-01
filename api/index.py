@@ -8,6 +8,7 @@ app = Flask(__name__)
 app.secret_key = 'super secret key'
 
 # Next Just Add Delete a habit option
+# Make MyHabits heading div longer
 
 
 def getdb():
@@ -108,6 +109,17 @@ def addHabit():
         return {'result': True, 'msg': f'Habit \"{name}\" register successfull'}
     else:
         return res
+
+
+@app.route("/deleteHabit", methods=['POST'])
+def deleteHabit():
+    fetchHabitForCurrentUser()
+    habitId = request.json['habitId']
+    db = getdb()
+    db.execute('DELETE FROM habits WHERE id=?', (habitId,))
+    db.commit()
+    fetchHabitForCurrentUser()
+    return {'result': True, 'habits': fetchHabitForCurrentUser()}
 
 
 @app.route("/fetchHabit", methods=['GET'])

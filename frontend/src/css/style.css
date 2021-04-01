@@ -132,10 +132,28 @@ body {
 .myHabitcontainer .habits .habit {
   padding: 0.1em 0em;
   margin: 0.5em 0em;
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: 50% 50%;
+      grid-template-columns: 50% 50%;
+  width: 100%;
 }
 
 .myHabitcontainer .habits .habit p {
   padding: 0em 0.5em;
+}
+
+.myHabitcontainer .habits .habit .habitDeleteButton {
+  width: 50%;
+  height: 20%;
+  -ms-flex-item-align: center;
+      -ms-grid-row-align: center;
+      align-self: center;
+  -ms-grid-column-align: center;
+      justify-self: center;
+  background-color: darkgreen;
+  color: white;
+  border: none;
 }
 
 .myHabitcontainer .habits .signup_reminder {

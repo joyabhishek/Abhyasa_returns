@@ -130,8 +130,20 @@ body {
     .habit {
       padding: 0.1em 0em;
       margin: 0.5em 0em;
+      display: grid;
+      grid-template-columns: 50% 50%;
+      width: 100%;
       p {
         padding: 0em 0.5em;
+      }
+      .habitDeleteButton {
+        width: 50%;
+        height: 20%;
+        align-self: center;
+        justify-self: center;
+        background-color: darkgreen;
+        color: white;
+        border: none;
       }
     }
 
