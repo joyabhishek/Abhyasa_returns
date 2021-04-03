@@ -4,18 +4,21 @@ function DisplayHabitRender(props){
 
 
     let habitsHtml = Object.keys(props.habits).map(habitInfo => {
-        let styles = {
+        let HabitStyles = {
             borderLeft: '10px solid '+ props.habits[habitInfo].color,
         }
+        let HabitButtonStyles = {
+            backgroundColor: props.habits[habitInfo].color,
+        }
         return(
-            <div className="habit" style={styles} key={props.habits[habitInfo].id} >
+            <div className="habit" style={HabitStyles} key={props.habits[habitInfo].id} >
                 <div>
                     <p>Name: {props.habits[habitInfo].name}</p>
                     <p>Reminder: {props.habits[habitInfo].reminder}</p>
                     <p>Days: {props.habits[habitInfo].days}</p>
                     <p>Goal: {props.habits[habitInfo].mins} mins</p>
                 </div>
-                <button className="habitDeleteButton" onClick={() => {props.deleteHabit(props.habits[habitInfo].id)}}>Delete</button>
+                <button className="habitDeleteButton" style={HabitButtonStyles} onClick={() => {props.deleteHabit(props.habits[habitInfo].id)}}>Delete</button>
             </div>
             
         )
